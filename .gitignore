@@ -1,4 +1,6 @@
 *.tgz
 node_modules
 .idea
+.npmrc
+
 
