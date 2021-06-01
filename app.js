@@ -24,9 +24,6 @@ app.controller("DemoController", function ($log, $scope, jsPlumbService) {
     var toolkit;
     var surface;
 
-    window.jsps = jsPlumbService;
-    window.ctrl = this;
-
     //
     // scope contains
     // jtk - the toolkit
@@ -72,17 +69,17 @@ app.controller("DemoController", function ($log, $scope, jsPlumbService) {
         var controls = element[0].querySelector(".controls");
         // listener for mode change on renderer.
         surface.bind("modeChanged", function (mode) {
-            jsPlumb.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
-            jsPlumb.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
+            surface.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
+            surface.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
         });
 
         // pan mode/select mode
-        jsPlumb.on(controls, "tap", "[mode]", function () {
+        surface.on(controls, "tap", "[mode]", function () {
             surface.setMode(this.getAttribute("mode"));
         });
 
         // on home button click, zoom content to fit.
-        jsPlumb.on(controls, "tap", "[reset]", function () {
+        surface.on(controls, "tap", "[reset]", function () {
             toolkit.clearSelection();
             surface.zoomToFit();
         });
@@ -127,12 +124,12 @@ app.controller("DemoController", function ($log, $scope, jsPlumbService) {
         view : {
             nodes: {
                 "default": {
-                    template: "node"
+                    templateId: "node"
                 }
             },
             groups:{
                 "default":{
-                    template:"group",
+                    templateId:"group",
                     endpoint:"Blank",
                     anchor:"Continuous",
                     revert:false,
@@ -148,22 +145,29 @@ app.controller("DemoController", function ($log, $scope, jsPlumbService) {
         layout:{
             type:"Absolute"
         },
-        jsPlumb: {
-            Anchor:"Continuous",
-            Endpoint: "Blank",
-            Connector: [ "StateMachine", { cssClass: "connectorClass", hoverClass: "connectorHoverClass" } ],
-            PaintStyle: { strokeWidth: 1, stroke: '#89bcde' },
-            HoverPaintStyle: { stroke: "orange" },
-            Overlays: [
-                [ "Arrow", { fill: "#09098e", width: 10, length: 10, location: 1 } ]
+        defaults: {
+            anchor:"Continuous",
+            endpoint: "Blank",
+            connector: {type:"StateMachine", options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } },
+            paintStyle: { strokeWidth: 1, stroke: '#89bcde' },
+            hoverPaintStyle: { stroke: "orange" },
+            connectionOverlays: [
+                {type: "Arrow", options:{ fill: "#09098e", width: 10, length: 10, location: 1 } }
             ]
         },
-        lassoFilter: ".controls, .controls *, .miniview, .miniview *",
         dragOptions: {
             filter: ".delete *"
         },
         consumeRightClick:false,
-        zoomToFit:true
+        zoomToFit:true,
+        plugins:[
+            {
+                type:"lasso",
+                options:{
+                    filter: ".controls, .controls *, .miniview, .miniview *",
+                }
+            }
+        ]
     };
 
     // ---------------- update data set -------------------------

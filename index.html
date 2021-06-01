@@ -4,9 +4,9 @@
         <title>jsPlumb Toolkit - Angular integration with Groups</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
         <!-- CSS -->
-        <link rel="stylesheet" href="node_modules/jsplumbtoolkit/dist/css/jsplumbtoolkit.css">
-        <link rel="stylesheet" href="node_modules/jsplumbtoolkit-syntax-highlighter/dist/css/jsplumbtoolkit-syntax-highlighter.css">
-        <link rel="stylesheet" href="node_modules/jsplumbtoolkit-demo-support/dist/css/jsplumbtoolkit-demo-support.css">
+        <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css">
+        <link rel="stylesheet" href="node_modules/@jsplumb/json-syntax-highlighter/jsplumbtoolkit-syntax-highlighter.css">
+        <link rel="stylesheet" href="node_modules/@jsplumb/toolkit-demo-support/jsplumbtoolkit-demo-support.css">
         <!-- /CSS -->
 
         <link rel="stylesheet" href="app.css">
@@ -16,8 +16,6 @@
     <!-- content -->
 
     <div class="jtk-demo-main" id="jtk-demo-groups" ng-controller="DemoController as DemoController" ng-app="app">
-
-
 
 
             <div class="jtk-demo-canvas">
@@ -68,39 +66,41 @@
             </div>
 
 
-
-
-
         <script type="text/ng-template" id="node_template.tpl">
-            <div>
+            <div data-jtk-target="true">
                 {{node.name}}
                 <div class="delete" title="Click to delete" ng-click="remove(node)"></div>
-                <div class="connect"></div>
+                <div class="connect" data-jtk-source="true"></div>
             </div>
-            <jtk-source filter=".connect"></jtk-source>
-            <jtk-target></jtk-target>
+
         </script>
 
         <script type="text/ng-template" id="group_template.tpl">
-            <div>
+            <div data-jtk-target="true">
                 <div class="group-title">
                     {{group.title}}
                     <button class="expand" ng-click="toggleGroup(group)"></button>
                 </div>
-                <div jtk-group-content="true"></div>
+                <div data-jtk-group-content="true"></div>
             </div>
-            <jtk-source/>
-            <jtk-target/>
         </script>
 
         </div>
 
     <!-- /content -->
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
-        <script src="node_modules/jsplumbtoolkit/dist/js/jsplumbtoolkit.js"></script>
-        <script src="node_modules/jsplumbtoolkit-drop/dist/js/jsplumbtoolkit-drop.js"></script>
-        <script src="node_modules/jsplumbtoolkit-angular-1.x/dist/js/jsplumbtoolkit-angular-1.x.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/@jsplumb/util/js/jsplumb.util.umd.js"></script>
+    <script src="node_modules/@jsplumb/core/js/jsplumb.core.umd.js"></script>
+    <script src="node_modules/@jsplumb/browser-ui/js/jsplumb.browser-ui.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/core/js/jsplumbtoolkit.core.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/browser-ui/js/jsplumbtoolkit.browser-ui.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/plugin-miniview/js/jsplumbtoolkit.plugin-miniview.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/plugin-lasso/js/jsplumbtoolkit.plugin-lasso.umd.js"></script>
+    <script src="node_modules/@jsplumb/connector-bezier/js/jsplumb.connector-bezier.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/drop/js/jsplumbtoolkit.drop.umd.js"></script>
+    <script src="node_modules/@jsplumb/json-syntax-highlighter/jsplumbtoolkit-syntax-highlighter.umd.js"></script>
+    <script src="node_modules/@jsplumbtoolkit/angular-1.x/js/jsplumbtoolkit-angular-1.x.js"></script>
         <script src="app.js"></script>
 
 
